@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.3",
     "jsforce": "^1.11.0",
-    "node-fetch": "^3.2.0"
+    "node-fetch": "^3.2.0",
+    "path": "^0.12.7"
   },
   "type": "module"
 }

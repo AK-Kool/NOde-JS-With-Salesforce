@@ -1,16 +1,26 @@
 //var jsforce = require('jsforce');
 import fetch from "node-fetch";
 
-// var conn = new jsforce.Connection();
-// conn.login('aakakhilesh@yahoo.com.ein', 'Apple@1221Xsux0QjthwnVF8EifmJK7scS', function(err, res) {
-//   if (err) { return console.error('Error1 :' + err); }
-//   conn.query('SELECT Id, Name FROM Account LIMIT 5', function(err, res) {
-//     if (err) { return console.error('Error2 :' + err); }
-//     console.log('Response : ' + JSON.stringify(res));
-//   });
-// });
+import express from "express";
+import path from "path";
 
-var url1 = 'https://testcompany-35b-dev-ed.my.salesforce.com/services/oauth2/token?grant_type=password&client_id=3MVG9fe4g9fhX0E5NaxSjfQqMIRnSHZ9Q_Awk1teIJfCaZ0ClSYO_wSpFBosNGT_NkK4tC4i9QsWrWN_sAA1K&client_secret=9E4A88CE6A049FC1B1A390B13EFBC7C75C1ABE37FEDEC0AEA79EB3AA529BF432&username=aakakhilesh@yahoo.com.ein&password=Apple@1221Xsux0QjthwnVF8EifmJK7scS';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const PORT = process.env.PORT || 5000;
+
+
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .listen(PORT, () => { 
+    console.log(`Listening on ${ PORT }`)
+    var url1 = 'https://testcompany-35b-dev-ed.my.salesforce.com/services/oauth2/token?grant_type=password&client_id=3MVG9fe4g9fhX0E5NaxSjfQqMIRnSHZ9Q_Awk1teIJfCaZ0ClSYO_wSpFBosNGT_NkK4tC4i9QsWrWN_sAA1K&client_secret=9E4A88CE6A049FC1B1A390B13EFBC7C75C1ABE37FEDEC0AEA79EB3AA529BF432&username=aakakhilesh@yahoo.com.ein&password=Apple@1221Xsux0QjthwnVF8EifmJK7scS';
 
 var log = console.log;
 
@@ -60,5 +70,15 @@ async function invokeData(url,token)
         //body: JSON.stringify(data) // body data type must match "Content-Type" header
       });
       return response.json(); // parses JSON response into native JavaScript objects
-}  
+}
+  });
+
+// var conn = new jsforce.Connection();
+// conn.login('aakakhilesh@yahoo.com.ein', 'Apple@1221Xsux0QjthwnVF8EifmJK7scS', function(err, res) {
+//   if (err) { return console.error('Error1 :' + err); }
+//   conn.query('SELECT Id, Name FROM Account LIMIT 5', function(err, res) {
+//     if (err) { return console.error('Error2 :' + err); }
+//     console.log('Response : ' + JSON.stringify(res));
+//   });
+// });  
 
